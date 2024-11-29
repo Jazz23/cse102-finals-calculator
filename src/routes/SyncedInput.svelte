@@ -15,7 +15,7 @@
   export let step: number = 0.01;
 
   // Value of the input box that you can bind to read/write.
-  export let value: any | null = null;
+  export let value: number | string | null = null;
 
   // Load potential value from query params. If the type of input box is number, parse the value as a number.
   value = $page.url.searchParams.get(description);

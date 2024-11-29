@@ -10,12 +10,23 @@ When all 4 boxes are completed:
 
 <script lang="ts">
   import {GradePart} from "$lib/GradePart";
-  import SyncedInput from "./syncedInput.svelte";
+  import SyncedInput from "./SyncedInput.svelte";
 
   let midterm1 = new GradePart("Midterm 1", 0.3);
   let midterm2 = new GradePart("Midterm 2", 0.3);
   let final = new GradePart("Final", 0.4);
   let desiredGrade: number | null = null;
+
+  $: recalculateFinalsScore(midterm1.scorePercent, midterm2.scorePercent, desiredGrade);
+
+  function recalculateFinalsScore(midterm1Score, midterm2Score, desiredGrade) {
+    if (!midterm1?.scorePercent || !midterm2?.scorePercent || !desiredGrade) return;
+
+    let adjustedMidterm1 = Math.max(midterm1.scorePercent, midterm2.scorePercent);
+    let midterm1Copy = new GradePart(midterm1.name, midterm1.weight, adjustedMidterm1);
+
+    final.recalculateScore(desiredGrade, midterm1Copy, midterm2);
+  }
 </script>
 
 <p>Midterm1 (30%)</p>
