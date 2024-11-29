@@ -6,7 +6,7 @@ export class GradePart {
   // Current percentage score. E.g. 83%.
   public scorePercent: number | null;
 
-  constructor(name: string, weight: number, scorePercent: number | null) {
+  constructor(name: string, weight: number, scorePercent: number | null = null) {
     this.name = name;
     this.weight = weight;
     this.scorePercent = scorePercent;
