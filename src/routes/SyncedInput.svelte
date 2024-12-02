@@ -7,15 +7,8 @@
 <script lang="ts">
   import {page} from '$app/stores';
   import {goto} from "$app/navigation";
-
-  export let description: string;
-  export let type: string = "number";
-  export let min: number = 0;
-  export let max: number = 100;
-  export let step: number = 0.01;
-
-  // Value of the input box that you can bind to read/write.
-  export let value: number | string | null = null;
+  
+  let { description, type = "number", min = 0, max = 1, step = 0.01, value = $bindable<number | string | null>(null)} = $props();
 
   // Load potential value from query params. If the type of input box is number, parse the value as a number.
   value = $page.url.searchParams.get(description);
@@ -36,4 +29,4 @@
   }
 </script>
 
-<p>{description}</p><input {type} bind:value={value} on:focusout={updateQueryParams} {min} {max} {step}/>
+<p>{description}</p><input {type} bind:value={value} onfocusout={updateQueryParams} {min} {max} {step}/>
